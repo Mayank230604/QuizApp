@@ -68,28 +68,30 @@ class _QuizScreenState extends State<QuizScreen> {
   ];
 
   void _checkAnswer(int selectedIndex) {
+  if (_currentIndex < questions.length - 1 && !_submitted) {
     if (selectedIndex == questions[_currentIndex]['correctIndex']) {
       setState(() {
         _score++;
       });
     }
   }
+}
 
   void _nextQuestion() {
-    setState(() {
-      if (_currentIndex < questions.length - 1) {
-        _currentIndex++;
-      }
-    });
-  }
+  setState(() {
+    if (_currentIndex < questions.length - 1 && !_submitted) {
+      _currentIndex++;
+    }
+  });
+}
 
   void _previousQuestion() {
-    setState(() {
-      if (_currentIndex > 0) {
-        _currentIndex--;
-      }
-    });
-  }
+  setState(() {
+    if (_currentIndex > 0 && !_submitted) {
+      _currentIndex--;
+    }
+  });
+}
 
   void _submitQuiz() {
     setState(() {
