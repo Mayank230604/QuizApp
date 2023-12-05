@@ -45,24 +45,29 @@ class _QuizScreenState extends State<QuizScreen> {
       'correctIndex': 1,
     },
     {
-      'question': 'Which planet is known as the Red Planet?',
-      'options': ['Mars', 'Venus', 'Jupiter', 'Saturn'],
-      'correctIndex': 0,
-    },
-    {
       'question': 'Who wrote "Romeo and Juliet"?',
-      'options': [
-        'Charles Dickens',
-        'Jane Austen',
-        'William Shakespeare',
-        'Mark Twain'
-      ],
+      'options': ['Charles Dickens', 'Jane Austen', 'William Shakespeare', 'Mark Twain'],
       'correctIndex': 2,
     },
     {
       'question': 'What is the capital of Japan?',
       'options': ['Beijing', 'Seoul', 'Tokyo', 'Bangkok'],
       'correctIndex': 2,
+    },
+    {
+      'question': 'What is the capital of Australia?',
+      'options': ['Sydney', 'Melbourne', 'Canberra', 'Perth'],
+      'correctIndex': 2,
+    },
+    {
+      'question': 'Which is the largest ocean on Earth?',
+      'options': ['Atlantic Ocean', 'Indian Ocean', 'Southern Ocean', 'Pacific Ocean'],
+      'correctIndex': 3,
+    },
+    {
+      'question': 'Who developed the theory of relativity?',
+      'options': ['Isaac Newton', 'Albert Einstein', 'Galileo Galilei', 'Stephen Hawking'],
+      'correctIndex': 1,
     },
     // Add more questions...
   ];
