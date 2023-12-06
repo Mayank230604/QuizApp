@@ -12,11 +12,51 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: QuizScreen(),
+      home: WelcomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
+
+class WelcomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Welcome to Quiz App'),
+        backgroundColor: Colors.teal,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Welcome to the Quiz App!',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => QuizScreen()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.teal,
+              ),
+              child: Text('Start Quiz', style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
 class QuizScreen extends StatefulWidget {
   @override
@@ -73,7 +113,7 @@ class _QuizScreenState extends State<QuizScreen> {
   ];
 
   void _checkAnswer(int selectedIndex) {
-  if (_currentIndex < questions.length - 1 && !_submitted) {
+  if (_currentIndex <= questions.length - 1 && !_submitted) {
     if (selectedIndex == questions[_currentIndex]['correctIndex']) {
       setState(() {
         _score++;
@@ -82,13 +122,18 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 }
 
+
   void _nextQuestion() {
   setState(() {
     if (_currentIndex < questions.length - 1 && !_submitted) {
       _currentIndex++;
+    } else if (_currentIndex == questions.length - 1) {
+      _submitted = true;
+      _submitQuiz();
     }
   });
 }
+
 
   void _previousQuestion() {
   setState(() {
@@ -99,33 +144,28 @@ class _QuizScreenState extends State<QuizScreen> {
 }
 
   void _submitQuiz() {
-    setState(() {
-      _submitted = true;
-    });
+  setState(() {
+    _submitted = true;
+  });
 
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Quiz Results'),
-        content: Text('Your Score: $_score / ${questions.length}'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('Continue', style: TextStyle(color: Colors.teal)),
-          ),
-          TextButton(
-            onPressed: () {
-              _restartQuiz(); // Call _restartQuiz when Restart Quiz is pressed
-              Navigator.pop(context);
-            },
-            child: Text('Restart Quiz', style: TextStyle(color: Colors.teal)),
-          ),
-        ],
-      ),
-    );
-  }
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text('Quiz Results'),
+      content: Text('Your Score: $_score / ${questions.length}'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            _restartQuiz(); // Call _restartQuiz when Restart Quiz is pressed
+            Navigator.pop(context);
+          },
+          child: Text('Restart Quiz', style: TextStyle(color: Colors.teal)),
+        ),
+      ],
+    ),
+  );
+}
+
 
   void _restartQuiz() {
     setState(() {
@@ -154,12 +194,12 @@ class _QuizScreenState extends State<QuizScreen> {
                 'Quiz App',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 24,
+                  fontSize: 30,
                 ),
               ),
             ),
             ListTile(
-              title: Text('Home', style: TextStyle(color: Colors.white)),
+              title: Text('Home', style: TextStyle(color: Colors.teal)),
               onTap: () {
                 Navigator.pop(context);
               },
